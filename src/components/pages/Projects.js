@@ -12,7 +12,7 @@ class Projects extends Component {
   }
 
   componentDidMount() {
-    let dataURL = "https://labudovamudaba/wp-json/wp/v2/projects?_embed"
+    let dataURL = "https://aleksandar.online/wp-json/wp/v2/projects?_embed"
     fetch(dataURL)
       .then(res => res.json())
       .then(res => {
@@ -30,7 +30,7 @@ class Projects extends Component {
           <div id="projects" className="content">
             {Object.keys(data).map((result, index) => (
               <li key={data[result].id} className="inner-content">
-                <Link to={`/projects/:${data[result].slug}`}>
+                <Link to={`/projects/${data[result].slug}`}>
                   <p>
                     {index} -
                     {data[result].title.rendered}

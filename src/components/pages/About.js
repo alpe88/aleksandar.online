@@ -8,7 +8,7 @@ class About extends Component {
   }
 
   componentDidMount() {
-    let dataURL = "https://blahblahblah/wp-json/wp/v2/pages?filter[name]=about?_embed";
+    let dataURL = "https://aleksandar.online/wp-json/wp/v2/pages?filter[name]=about?_embed";
     fetch(dataURL)
       .then(res => res.json())
       .then(res => {

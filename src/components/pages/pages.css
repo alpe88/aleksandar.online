@@ -1,0 +1,31 @@
+
+
+.slide-up {
+  -webkit-animation: slide-up 5s, bounce 5s;
+  animation: slide-up 5s;
+}
+
+.page{
+
+}
+
+.page:target{
+
+}
+
+.content {
+
+}
+
+
+#home {
+
+}
+
+#about {
+
+}
+
+#projects {
+
+}

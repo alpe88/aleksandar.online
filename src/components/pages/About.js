@@ -3,24 +3,10 @@ import React, { Component } from 'react';
 import './pages.css';
 
 class About extends Component {
-  state = {
-    data: []
-  }
-
-  componentDidMount() {
-    let dataURL = "https://aleksandar.online/wp-json/wp/v2/pages?filter[name]=about?_embed";
-    fetch(dataURL)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          data: res,
-        })
-      })
-  }
 
   render() {
-    const { data } = this.state
-    console.log(data)
+    const { data } = this.props
+
     return (
         <div className="page">
           <div id="about" className="content">
@@ -32,8 +18,8 @@ class About extends Component {
             ))}
           </div>
         </div>
-    );
+    )
   }
 }
 
-export default About;
+export default About

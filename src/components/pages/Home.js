@@ -17,8 +17,8 @@ class Home extends Component {
             <p>...sometimes..</p>
           </div>
         </div>
-    );
+    )
   }
 }
 
-export default Home;
+export default Home

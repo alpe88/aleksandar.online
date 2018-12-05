@@ -1,36 +1,25 @@
 import React, { Component } from 'react';
 
 import {
-  Link
+  Link,
+  Route
 } from 'react-router-dom';
 
 import './pages.css';
 
-class Projects extends Component {
-  state = {
-    data: []
-  }
+import Project from './Project'
 
-  componentDidMount() {
-    let dataURL = "https://aleksandar.online/wp-json/wp/v2/projects?_embed"
-    fetch(dataURL)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          data: res,
-        })
-      })
-  }
+class Projects extends Component {
 
   render() {
-    const { data } = this.state
-    console.log(data);
+    const { match, data } = this.props
+
     return (
         <div className="page">
           <div id="projects" className="content">
             {Object.keys(data).map((result, index) => (
               <li key={data[result].id} className="inner-content">
-                <Link to={`/projects/${data[result].slug}`}>
+                <Link to={`${match.path}/${data[result].slug}`}>
                   <p>
                     {index} -
                     {data[result].title.rendered}
@@ -39,9 +28,10 @@ class Projects extends Component {
               </li>
             ))}
           </div>
+          <Route path={`${match.url}/:slug`} component={(props) => (<Project {...props} data={data} />)} />
         </div>
-    );
+    )
   }
 }
 
-export default Projects;
+export default Projects

@@ -14,6 +14,7 @@ import Logo from './components/logo/Logo';
 
 import Home from './components/pages/Home'
 import About from './components/pages/About'
+import Project from './components/pages/Project'
 import Projects from './components/pages/Projects'
 
 class App extends Component {
@@ -54,6 +55,7 @@ class App extends Component {
                 <Switch location={location}>
                   <Route exact path="/" component={Home} />
                   <Route path="/about" component={(props) => (<About {...props} data={about} />)} />
+                  <Route path={"/projects/:slug"} component={(props) => (<Project {...props} data={projects} />)} />
                   <Route path="/projects" component={(props) => (<Projects {...props} data={projects} />)} />
                   <Route render={() => <h1>Page not found</h1>} />
                 </Switch>

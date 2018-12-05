@@ -11,7 +11,6 @@ class Projects extends Component {
 
   render() {
     const { location, match, data } = this.props
-
     return (
       <CSSTransition
              key={location.key}
@@ -22,7 +21,7 @@ class Projects extends Component {
           <div id="projects" className="content">
             {Object.keys(data).map((result, index) => (
               <li key={data[result].id} className="inner-content">
-                <Link to={`${match.url}/${data[result].slug}`}>
+                <Link to={`${match.path}/${data[result].slug}`}>
                   <p>
                     {index} -
                     {data[result].title.rendered}
@@ -31,7 +30,7 @@ class Projects extends Component {
               </li>
             ))}
           </div>
-          <Route path={`${match.path}/:slug`} component={(props) => (<Project {...props} data={data} />)} />
+
         </div>
       </CSSTransition>
     )
@@ -39,27 +38,3 @@ class Projects extends Component {
 }
 
 export default Projects
-
-
-function Project({ location, match, data }) {
-  const project = data.find((p) => p.slug === match.params.slug)
-
-  return(
-    <CSSTransition
-           key={location.key}
-           timeout={{ enter: 300, exit: 300 }}
-           classNames={'fade'}
-         >
-      <div className="page">
-        <div className="content">
-          <img src={project.additional_fields.featured_image_src} alt={project.additional_fields.featured_image_alt} />
-          <h1>{project.title.rendered}</h1>
-          <p dangerouslySetInnerHTML={{__html: project.content.rendered}}></p>
-          <p>role:</p> {project.additional_fields.role}
-          <p>url:</p> {project.additional_fields.source_url}
-          <p>technologies used:</p> {project.additional_fields.technologies_used}
-        </div>
-      </div>
-    </CSSTransition>
-  )
-}

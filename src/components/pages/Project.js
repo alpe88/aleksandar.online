@@ -1,29 +1,33 @@
 import React, { Component } from 'react';
-
+import { CSSTransition } from "react-transition-group";
 import './pages.css';
 
 class Project extends Component {
 
-    getProject = (projects, query) => {
-      console.log("projects, passed in from params",projects)
-      console.log("query, passed in from match",query)
-      let foundProject = projects.find((p) => p.slug === query)
-      console.log("foundProject, after projectMatch runs the find function", foundProject)
-    }
+render() {
+    const { location, match, data } = this.props
+    console.log(data)
+    const project = data.find((p) => p.slug === match.params.slug)
 
-  render() {
-    const { match, data } = this.props
-    let project = this.getProject(data, match.params.slug)
-          console.log("project, after getProject in componentDidMount runs ", project)
-
+    console.log(project)
     return (
+      <CSSTransition
+             key={location.key}
+             timeout={{ enter: 1000, exit: 1000 }}
+             classNames={'fade'}
+           >
         <div className="page">
           <div className="content">
+            <img src={project.additional_fields.featured_image_src} alt={project.additional_fields.featured_image_alt} />
             <h1>{project.title.rendered}</h1>
             <p dangerouslySetInnerHTML={{__html: project.content.rendered}}></p>
+            <p>role:</p> {project.additional_fields.role}
+            <p>url:</p> {project.additional_fields.source_url}
+            <p>technologies used:</p> {project.additional_fields.technologies_used}
           </div>
         </div>
-    );
+      </CSSTransition>
+    )
   }
 }
 

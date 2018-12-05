@@ -7,6 +7,8 @@ import {
   NavLink
 } from 'react-router-dom';
 
+import { TransitionGroup } from "react-transition-group";
+
 import './App.css';
 import Logo from './components/logo/Logo';
 
@@ -24,8 +26,8 @@ class App extends Component {
   componentDidMount() {
     // store urls to fetch in an array
     const urls = [
-      "https://aleksandar.online/wp-json/wp/v2/projects?_embed",
-      "https://aleksandar.online/wp-json/wp/v2/pages?filter[name]=about?_embed"
+      "https://aleksandar.online/wp-json/wp/v2/projects",
+      "https://aleksandar.online/wp-json/wp/v2/pages?filter[name]=about"
     ]
     let promises = urls.map(url => fetch(url).then(y => y.json()))
     Promise.all(promises).then(results => {
@@ -39,25 +41,29 @@ class App extends Component {
     }
   render() {
     const { loading, projects, about } = this.state
+    const { location } = this.props
 
-    if(loading) {
-      return 'LOADING'
-    }
     return (
       <Router>
         <Fragment>
             <NavLink to="/about">About</NavLink>
             <NavLink to="/projects">All Projects</NavLink>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/about" component={(props) => (<About {...props} data={about} />)} />
-              <Route path="/projects" component={(props) => (<Projects {...props} data={projects} />)} />
-              <Route render={() => <h1>Page not found</h1>} />
-            </Switch>
+
+            <TransitionGroup className="transition-group">
+              <section className="route-section">
+                <Switch location={location}>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/about" component={(props) => (<About {...props} data={about} />)} />
+                  <Route path="/projects" component={(props) => (<Projects {...props} data={projects} />)} />
+                  <Route render={() => <h1>Page not found</h1>} />
+                </Switch>
+              </section>
+            </TransitionGroup>
+
         </Fragment>
       </Router>
     )
   }
 }
 
-export default App;
+export default App

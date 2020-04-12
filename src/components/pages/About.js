@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { CSSTransition } from "react-transition-group";
 import './pages.css';
+import { baseStyles } from "../../css/baseStyles";
 
 class About extends Component {
 
@@ -17,7 +18,7 @@ class About extends Component {
           <div id="about" className="content">
             {Object.keys(data).map((result, index) => (
               <div key={data[result].id} className="inner-content">
-                <img src={data[result].additional_fields.featured_image_src} alt={data[result].additional_fields.featured_image_alt} />
+                <img style={baseStyles.image} src={data[result].additional_fields.featured_image_src} alt={data[result].additional_fields.featured_image_alt} />
                 <h1><p>{data[result].title.rendered}</p></h1>
                 <p dangerouslySetInnerHTML={{__html: data[result].content.rendered}}></p>
               </div>

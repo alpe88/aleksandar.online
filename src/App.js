@@ -27,8 +27,8 @@ class App extends Component {
   componentDidMount() {
     // store urls to fetch in an array
     const urls = [
-      "https://aleksandar.online/wp-json/wp/v2/projects",
-      "https://aleksandar.online/wp-json/wp/v2/pages?filter[name]=about"
+      "https://cdn.aleksandar.online/wp-json/wp/v2/projects",
+      "https://cdn.aleksandar.online/wp-json/wp/v2/pages?filter[name]=about"
     ]
     let promises = urls.map(url => fetch(url).then(y => y.json()))
     Promise.all(promises).then(results => {
@@ -51,7 +51,6 @@ class App extends Component {
             <NavLink to="/projects">All Projects</NavLink>
 
             <TransitionGroup className="transition-group">
-              <section className="route-section">
                 <Switch location={location}>
                   <Route exact path="/" component={Home} />
                   <Route path="/about" component={(props) => (<About {...props} data={about} />)} />
@@ -59,7 +58,6 @@ class App extends Component {
                   <Route path="/projects" component={(props) => (<Projects {...props} data={projects} />)} />
                   <Route render={() => <h1>Page not found</h1>} />
                 </Switch>
-              </section>
             </TransitionGroup>
 
         </Fragment>

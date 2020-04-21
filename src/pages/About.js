@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { CSSTransition } from "react-transition-group";
 import './pages.css';
-import { baseStyles } from "../../css/baseStyles";
+import { baseStyles } from "../css/baseStyles";
 
 class About extends Component {
 

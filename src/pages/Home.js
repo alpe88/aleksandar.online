@@ -1,32 +1,21 @@
-import React, { Component } from 'react';
-import { CSSTransition } from "react-transition-group";
+import React from 'react';
+import {useLocation
+} from 'react-router-dom';
+import Logo from '../components/logo/Logo';
 import './pages.css';
 
-import Logo from '../logo/Logo';
-
-class Home extends Component {
-
-  render() {
-    const { location } = this.props
-
-    return (
-      <CSSTransition
-              key={location.key}
-              timeout={{ enter: 1000, exit: 1000 }}
-              classNames={'fade'}
-            >
-        <div className="page">
-          <div id="home" className="content">
-            <p>Hello!</p>
-            <p>Welcome to</p>
-            <Logo />
-            <p>I am Aleksandar Petrovic, I make things on the web</p>
-            <p>...sometimes..</p>
-          </div>
-        </div>
-      </CSSTransition>
-    )
-  }
+function Home() {
+  let location = useLocation();
+  console.log('home: ',location);
+  return (
+    <div id="home" className="content">
+      <p>Hello!</p>
+      <p>Welcome to</p>
+      <Logo />
+      <p>I am Aleksandar Petrovic, I make things on the web</p>
+      <p>...sometimes..</p>
+    </div>
+  )
 }
 
 export default Home

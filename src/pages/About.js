@@ -1,14 +1,12 @@
 import React from 'react';
-import {
-  Link, useLocation, useParams, useRouteMatch
-} from 'react-router-dom';
-import { CSSTransition } from "react-transition-group";
+import { useLocation } from 'react-router-dom';
 import './pages.css';
 import { baseStyles } from "../css/baseStyles";
 
 function About({data}) {
   let location = useLocation();
   console.log('about: ',location);
+  console.log('about: ',data);
   return (
     <div id="about" className="content">
       {Object.keys(data).map((result, index) => (

@@ -6,7 +6,8 @@ import {
   NavLink,
   useRouteMatch
 } from 'react-router-dom';
-import { TransitionGroup } from "react-transition-group";
+
+import getData from './api/getData'
 
 import Home from '../src/pages/Home';
 import Projects from '../src/pages/Projects';
@@ -16,35 +17,38 @@ import About from '../src/pages/About';
 import './App.css';
 import '../src/css/animations.css';
 
-const urls = [
-  "https://cdn.aleksandar.online/wp-json/wp/v2/projects",
-  "https://cdn.aleksandar.online/wp-json/wp/v2/pages?filter[name]=about"
-]
 
 function App() {
-  const [siteData, setSiteData] = useState({projects: null, about: null});
+  const [site, setSiteData] = useState({ state: { loaded: false, errors: false }, data: { projects: null, about: null } });
   const [loading, setLoading] = useState(true);
 
-
-
   useEffect(() => {
-    const fetchData = async () => {
-      let promises = urls.map(url => fetch(url).then(r => r.json()));
-      await Promise.all(promises).then(results => {
-        setSiteData({ projects: results[0], about: results[1] });
-      }).catch(error => console.log(error));
-    };
 
-    fetchData();
-    setLoading(false);
-  }, []);
+    if(!site.state.loaded) {
+      fetchData().then(
+        r => {
+          setSiteData({ state: { loaded: true }, data: { projects: r[0], about: r[1] } });
+          setLoading(false);
+        }
+      ).catch(e => { 
+        console.log(e);
+        setSiteData({ state: { loaded: true, errors: true } });
+      });
+    }
 
-  console.log(siteData);
+  }, [site]);
 
+  const fetchData = async () => {
+    return await getData();
+  };
+
+  console.log(site.data.about);
+  console.log(site.data.projects);
   return (
       <div>
-          {loading && <p>Wait I'm Loading comments for you</p>}
-          {siteData !== 0 &&       
+          { site.state.errors && <p>There were errors!</p>}
+          { loading && <p>Wait I'm Loading for you</p> }
+          { site.state.loaded &&       
             <Router>
 
               <Fragment>
@@ -57,13 +61,13 @@ function App() {
                   <Home />
                 </Route>
                 <Route path="/about">
-                  <About data={siteData.about} />
+                  <About data={site.data.about} />
                 </Route>                
                 <Route path="/projects/:slug">
-                  <Project data={siteData.projects} />
+                  <Project data={site.data.projects} />
                 </Route>
                 <Route path="/projects">
-                  <Projects data={siteData.projects} />
+                  <Projects data={site.data.projects} />
                 </Route>
                 <Route render={() => <h1>Page not found</h1>} />
               </Switch>

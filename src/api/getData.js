@@ -1,4 +1,6 @@
 const urls = [
+    "https://cdn.aleksandar.online/wp-json/ao/v1/menu/main",
+    "https://cdn.aleksandar.online/wp-json/ao/v1/menu/social",
     "https://cdn.aleksandar.online/wp-json/wp/v2/projects",
     "https://cdn.aleksandar.online/wp-json/wp/v2/pages?filter[name]=about"
   ];

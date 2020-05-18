@@ -3,11 +3,12 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  NavLink,
   useRouteMatch
 } from 'react-router-dom';
 
 import getData from './api/getData'
+
+import Navigation from './components/navigation/Navigation'
 
 import Home from '../src/pages/Home';
 import Projects from '../src/pages/Projects';
@@ -19,7 +20,7 @@ import '../src/css/animations.css';
 
 
 function App() {
-  const [site, setSiteData] = useState({ state: { loaded: false, errors: false }, data: { projects: null, about: null } });
+  const [site, setSiteData] = useState({ state: { loaded: false, errors: false }, data: { menus: { main: null, social: null }, projects: null, about: null } });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,12 +28,12 @@ function App() {
     if(!site.state.loaded) {
       fetchData().then(
         r => {
-          setSiteData({ state: { loaded: true }, data: { projects: r[0], about: r[1] } });
+          setSiteData({ state: { loaded: true }, data: { menus: { main: r[0], social: r[1] }, projects: r[2], about: r[3] } });
           setLoading(false);
         }
       ).catch(e => { 
         console.log(e);
-        setSiteData({ state: { loaded: true, errors: true } });
+        setSiteData({ state: { loaded: true, errors: true }, data: null });
       });
     }
 
@@ -42,8 +43,7 @@ function App() {
     return await getData();
   };
 
-  console.log(site.data.about);
-  console.log(site.data.projects);
+  console.log({site});
   return (
       <div>
           { site.state.errors && <p>There were errors!</p>}
@@ -52,8 +52,7 @@ function App() {
             <Router>
 
               <Fragment>
-                  <NavLink to="/about">About</NavLink>
-                  <NavLink to="/projects">All Projects</NavLink>
+                <Navigation data={site.data.menus.main} />
               </Fragment>
 
               <Switch>

@@ -3,7 +3,7 @@ import {
   NavLink
 } from 'react-router-dom';
 
-function Navigation({data}) {
+function NavigationMain({data}) {
 console.log(data);
     return (
         <nav id="nav" className="nav"> 
@@ -19,7 +19,7 @@ console.log(data);
     )
   }
   
-export default Navigation
+export default NavigationMain
 
 
 

@@ -1,20 +1,23 @@
 import React from 'react';
 import {
-  useLocation
+  useLocation, Link
 } from 'react-router-dom';
-import Logo from '../components/logo/Logo';
+import { baseStyles } from "../css/baseStyles";
 import './pages.css';
 
-function Home() {
+import NavigationHomepage from '../components/navigation/NavigationHomepage'
+
+function Home({data}) {
   let location = useLocation();
-  console.log('home: ',location);
+  console.log('data on homepage: ',data.menus.main);
   return (
     <div id="home" className="content">
-      <p>Hello!</p>
-      <p>Welcome to</p>
-      <Logo />
-      <p>I am Aleksandar Petrovic, I make things on the web</p>
-      <p>...sometimes..</p>
+      <div className="container-fluid">
+        <div className="row-fluid">
+          <Link style={baseStyles.uppercase} to="/">a.o</Link>
+          <NavigationHomepage data={data.menus.main} />
+        </div>
+      </div>
     </div>
   )
 }

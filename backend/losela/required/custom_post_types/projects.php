@@ -8,8 +8,8 @@ if ( ! defined( 'WPINC' ) ) {
 function custom_post_type() {
 
 	$labels = array(
-		'name'                  => _x( 'Projects', 'Post Type General Name', 'ao' ),
-		'singular_name'         => _x( 'Project', 'Post Type Singular Name', 'ao' ),
+		'name'                  => __( 'Projects', 'Post Type General Name', 'ao' ),
+		'singular_name'         => __( 'Project', 'Post Type Singular Name', 'ao' ),
 		'menu_name'             => __( 'Projects', 'ao' ),
 		'name_admin_bar'        => __( 'Projects', 'ao' ),
 		'archives'              => __( 'Project Archives', 'ao' ),
@@ -41,7 +41,7 @@ function custom_post_type() {
 		'description'           => __( 'For projects', 'ao' ),
 		'labels'                => $labels,
 		'supports'              => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'custom-fields' ),
-		'taxonomies'            => array( 'category', 'post_tag' ),
+		'taxonomies'          => array( 'projects' ),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,
@@ -59,8 +59,7 @@ function custom_post_type() {
 		'publicly_queryable'    => true,
 		'query_var'             => true,
 	);
-    register_taxonomy_for_object_type( 'category', 'projects' );
-	register_taxonomy_for_object_type( 'post_tag', 'projects' );
+
 	register_post_type( 'projects', $args );
 }
 add_action( 'init', 'custom_post_type', 0 );
@@ -88,9 +87,14 @@ function show_project_fields_meta_box() {
 
 		<!-- All fields will go here -->
 		<p>
-			<label for="project_fields[url]">URL</label>
+			<label for="project_fields[url]">Url</label>
 			<br>
 			<input type="text" name="project_fields[url]" id="project_fields[url]" class="regular-text" value="<?php if (is_array($meta) && isset($meta['url'])) {	echo $meta['url']; } ?>">
+		</p>
+		<p>
+			<label for="project_fields[url]">Github</label>
+			<br>
+			<input type="text" name="project_fields[github]" id="project_fields[github]" class="regular-text" value="<?php if (is_array($meta) && isset($meta['github'])) {	echo $meta['github']; } ?>">
 		</p>
 		<p>
 			<label for="project_fields[highlight]">Project Highlight</label>

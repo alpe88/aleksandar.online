@@ -1,7 +1,6 @@
 <?php
-$redirectUrl = "https://aleksandar.online"; // Replace with the desired domain
+$redirectUrl = "https://aleksandar.online";
 
-// Perform the redirect
 header("Location: " . $redirectUrl);
 exit();
 ?>

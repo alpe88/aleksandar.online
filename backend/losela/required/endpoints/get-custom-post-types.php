@@ -2,7 +2,7 @@
 
 // Register custom endpoint for fetching all posts of a specific post type
 function custom_post_type_endpoint() {
-    register_rest_route('portfolio-api/v1', '/post-type/(?P<post_type>[a-zA-Z0-9-]+)', array(
+    register_rest_route('portfolio-api/v1', '/post-type/(?P<post_type>[a-zA-Z0-9_-]+)', array(
         'methods' => 'GET',
         'callback' => 'get_custom_post_types',
     ));
@@ -24,9 +24,29 @@ function get_custom_post_types($request) {
 
     $posts = get_posts($args);
 
-    // Return the posts as needed
-    return $posts;
+    // Initialize an array to store the modified posts
+    $modified_posts = array();
+
+    foreach ($posts as $post) {
+        // Get the custom field data using get_post_meta
+        $custom_fields = get_post_meta($post->ID);
+
+        // Add custom field data to the post object
+        $post->custom_fields = $custom_fields;
+
+        // Add the modified post to the array
+        $modified_posts[] = $post;
+    }
+
+    // Wrap the posts in an object with the post type as the key
+    $result = array(
+        $post_type => $modified_posts,
+    );
+
+    // Return the result object
+    return $result;
 }
+
 
 add_action('rest_api_init', 'custom_post_type_endpoint');
 

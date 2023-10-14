@@ -16,8 +16,14 @@ function get_all_pages_data($request) {
 
     $pages = get_posts($args);
 
-    // Return the pages as needed
-    return $pages;
+    // Wrap the pages in an object with the post type as the key
+    $result = array(
+        'pages' => $pages,
+    );
+
+    // Return the result object
+    return $result;
 }
+
 
 add_action('rest_api_init', 'custom_page_endpoint');

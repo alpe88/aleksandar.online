@@ -38,30 +38,26 @@ function custom_work_experience_post_type() {
     );
 
     $args = array(
-        'label'                 => __( 'Work Experience', 'ao' ),
-        'description'           => __( 'For work experiences', 'ao' ),
         'labels'                => $labels,
         'supports'              => array( 'title', 'editor', 'thumbnail', 'custom-fields' ),
         'taxonomies'            => array( 'post_tag' ),
         'hierarchical'          => false,
+        'has_archive'           => false,
         'public'                => true,
+        'publicly_queryable'    => true,
         'show_ui'               => true,
         'show_in_menu'          => true,
         'menu_position'         => 20,
         'menu_icon'             => 'dashicons-portfolio',
         'show_in_admin_bar'     => true,
-        'show_in_nav_menus'     => true,
         'can_export'            => true,
-        'has_archive'           => false,
-        'exclude_from_search'   => true,
         'capability_type'       => 'post',
         'show_in_rest'          => true,
-        'publicly_queryable'    => true,
         'query_var'             => true,
         'rewrite' => array('slug' => 'work-experience'),
     );
 
-    register_post_type( 'work_experience', $args );
+    register_post_type( 'work-experience', $args );
 }
 
 add_action( 'init', 'custom_work_experience_post_type', 0 );

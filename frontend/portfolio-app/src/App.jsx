@@ -1,33 +1,19 @@
-import useFetch from "./hooks/useFetch";
-import { useError } from "./contexts/useError";
-import { useLoading } from "./contexts/useLoading";
+import { useLoaderData } from "react-router-dom";
+import { Header, Main, Footer, Section } from "@alpe88/adar";
 
 function App() {
-  const { error } = useError();
-  const { isLoading } = useLoading();
-  const { data } = useFetch(
-    "https://cdn.aleksandar.online/wp-json/portfolio-api/v1/pages",
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
+  const data = useLoaderData();
+  console.log({ data });
   return (
-    <div>
-      {/* Render your data here */}
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>
+    <>
+      <Header>Header</Header>
+      <Main>
+        <Section id="about"></Section>
+        <Section id="work"></Section>
+        <Section id="resume"></Section>
+      </Main>
+      <Footer>Footer</Footer>
+    </>
   );
 }
 

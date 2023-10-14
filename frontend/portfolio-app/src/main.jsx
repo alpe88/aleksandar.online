@@ -1,18 +1,28 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import { ROUTES } from "./definitions/routes";
+
+import * as ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
-import { LoadingProvider } from "./contexts/LoadingContext";
-import { ErrorProvider } from "./contexts/ErrorContext";
+import appLoader from "./loaders/appLoader";
+import ErrorBoundary from "./ErrorBoundary";
+
+const router = createBrowserRouter([
+  {
+    path: ROUTES.HOME,
+    element: <App />,
+    loader: appLoader,
+    errorElement: <ErrorBoundary />,
+    // children: [
+    //   {
+    //     path: "team",
+    //     element: <Team />,
+    //     loader: teamLoader,
+    //   },
+    // ],
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(
-  <React.StrictMode>
-    <LoadingProvider>
-      <ErrorProvider>
-        <App />
-      </ErrorProvider>
-    </LoadingProvider>
-  </React.StrictMode>
-);
+root.render(<RouterProvider router={router} />);

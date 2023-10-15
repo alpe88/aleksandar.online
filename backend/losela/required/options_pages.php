@@ -38,7 +38,7 @@ function social_media_section_callback() {
     echo 'Enter your social media handles below:';
 }
 
-function instagram_callback() {
+function linkedin_callback() {
     $options = get_option('social_media_handles');
     echo '<input type="text" id="linkedin" name="social_media_handles[linkedin]" value="' . esc_attr($options['linkedin']) . '"/>';
 }

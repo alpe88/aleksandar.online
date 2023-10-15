@@ -87,3 +87,15 @@ function get_social_media_links() {
 
     return $social_media_links;
 }
+
+function get_social_media_links_endpoint() {
+    return rest_ensure_response(get_social_media_links());
+}
+
+
+add_action('rest_api_init', function () {
+    register_rest_route('portfolio-api/v1', '/social-media-links', array(
+        'methods' => 'GET',
+        'callback' => 'get_social_media_links_endpoint',
+    ));
+});

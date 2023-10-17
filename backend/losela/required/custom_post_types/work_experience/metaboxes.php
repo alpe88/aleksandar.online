@@ -78,22 +78,22 @@ function render_work_experience_metabox($post) {
 
 // Save data when the post is saved
 function save_work_experience_metabox($post_id) {
-    // Verify nonce
+    // Verify nonce to ensure request authenticity
     if (!isset($_POST['work_experience_metabox_nonce']) || !wp_verify_nonce($_POST['work_experience_metabox_nonce'], basename(__FILE__))) {
         return $post_id;
     }
 
-    // Check if it's an autosave
+    // Check if it's an autosave to avoid unnecessary updates
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
         return $post_id;
     }
 
-    // Check permissions
-    if ('work_experience' != $_POST['post_type']) {
+    // Verify user permissions to ensure access control
+    if (!current_user_can('edit_post', $post_id)) {
         return $post_id;
     }
 
-    // Update or add values
+    // Sanitize and update or delete work experience fields
     $fields = array(
         'job_title',
         'company_name',
@@ -105,15 +105,22 @@ function save_work_experience_metabox($post_id) {
         'project_highlight',
         'web_address',
         'code_repository_url',
-		'private_repo',
+        'private_repo',
     );
 
     foreach ($fields as $field) {
         if (isset($_POST[$field])) {
-            update_post_meta($post_id, $field, sanitize_text_field($_POST[$field]));
+            $sanitizedValue = sanitize_text_field($_POST[$field]);
+            try {
+                update_post_meta($post_id, $field, $sanitizedValue);
+            } catch (Exception $e) {
+                // Handle any errors during update
+                error_log($e->getMessage());
+            }
         } else {
             delete_post_meta($post_id, $field);
         }
     }
 }
+
 add_action('save_post', 'save_work_experience_metabox');

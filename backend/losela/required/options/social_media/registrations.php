@@ -24,18 +24,22 @@ function save_social_media_settings() {
         // LinkedIn
         $options['linkedin']['handle'] = sanitize_text_field($_POST['linkedin_handle']);
         $options['linkedin']['url'] = sanitize_text_field($_POST['linkedin_url']);
+        $options['linkedin']['icon_url'] = sanitize_text_field($_POST['linkedin_icon_url']);
         
         // GitHub
         $options['github']['handle'] = sanitize_text_field($_POST['github_handle']);
         $options['github']['url'] = sanitize_text_field($_POST['github_url']);
+        $options['github']['icon_url'] = sanitize_text_field($_POST['github_icon_url']);
         
         // Email
         $options['email']['handle'] = sanitize_text_field($_POST['email_handle']);
         $options['email']['url'] = sanitize_text_field($_POST['email_url']);
+        $options['email']['icon_url'] = sanitize_text_field($_POST['email_icon_url']);
         
         // Instagram
         $options['instagram']['handle'] = sanitize_text_field($_POST['instagram_handle']);
         $options['instagram']['url'] = sanitize_text_field($_POST['instagram_url']);
+        $options['instagram']['icon_url'] = sanitize_text_field($_POST['instagram_icon_url']);
         
         update_option('social_media_handles', $options);
     }

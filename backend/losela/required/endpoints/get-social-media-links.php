@@ -1,35 +1,24 @@
 <?php
 
-function get_social_media_icon(string $name = '') {
-    if ($name === '') {
-        return null;
-    }
-
-    $social_media_icons = array(
-        'linkedin' => 'icon-linkedin-outline.svg',
-        'github' => 'icon-github-outline.svg',
-        'email' => 'icon-email-outline.svg',
-        'instagram' => 'icon-instagram-outline.svg',
-    );
-    $icon_file_name = $social_media_icons[$name];
-    return wp_get_attachment_image_url(get_attachment_id_by_name($icon_file_name), 'full');
-}
-
 function process_social_media_handles($social_media_handles) {
     $social_media_links = array();
 
-    // foreach ($social_media_handles as $platform => $url) {
-    //     // $icon = get_social_media_icon($platform);
+    foreach ($social_media_handles as $platform => $platformData) {
+        $handle = $platformData['handle'];
+        $url = $platformData['url'];
+        $icon = get_social_media_icon($platform);
 
-    //     array_push($social_media_links, array(
-    //         'platform' => $platform,
-    //         'url' => $url,
-    //         'handle' => $social_media_handles[$platform],
-    //     ));
-    // }
+        $social_media_links[] = array(
+            'platform' => $platform,
+            'handle' => $handle,
+            'url' => $url,
+            'icon' => $icon,
+        );
+    }
 
-    return $social_media_handles;
+    return $social_media_links;
 }
+
 
 function get_social_media_links() {
     $social_media_handles = get_option('social_media_handles');
@@ -37,7 +26,9 @@ function get_social_media_links() {
         return array();
     }
 
-    return process_social_media_handles($social_media_handles);
+    return array_filter($social_media_handles, function ($item) {
+        return !empty($item['handle']);
+    });
 }
 
 function get_social_media_links_endpoint() {

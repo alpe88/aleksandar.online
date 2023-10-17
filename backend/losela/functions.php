@@ -9,6 +9,11 @@ Description: This is a theme meant to showcase my portfolio through the incorpor
 Version: 1.0
 */
 
+define('LINKEDIN_URL', 'https://www.linkedin.com/in/');
+define('GITHUB_URL', 'https://www.github.com/');
+define('EMAIL_URL', 'mailto:');
+define('INSTAGRAM_URL', 'https://www.instagram.com/');
+
 
 function require_all_files($dir) {
     foreach( glob( "$dir/*" ) as $path ){

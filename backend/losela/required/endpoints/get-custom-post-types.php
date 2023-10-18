@@ -30,13 +30,30 @@ function get_custom_post_types($request) {
     foreach ($posts as $post) {
         // Get the custom field data using get_post_meta
         $custom_fields = get_post_meta($post->ID);
-
+    
         // Add custom field data to the post object
         $post->custom_fields = $custom_fields;
-
+    
+        // Get the post's tags
+        $tags = get_the_tags($post->ID);
+    
+        // Initialize an empty array for tag names
+        $tagNames = [];
+    
+        // If there are tags, extract their names
+        if ($tags) {
+            foreach ($tags as $tag) {
+                $tagNames[] = $tag->name;
+            }
+        }
+    
+        // Add the tag names to the post object
+        $post->tags = $tagNames;
+    
         // Add the modified post to the array
         $modified_posts[] = $post;
     }
+    
 
     // Wrap the posts in an object with the post type as the key
     $result = array(

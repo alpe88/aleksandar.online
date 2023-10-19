@@ -2,7 +2,13 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    variants: {
+      extend: {},
+    },
+    fontFamily: {
+      heading: ["ArchivoBlack", "sans-serif"],
+      body: ["Lato", "sans-serif"],
+    },
   },
-  plugins: [],
+  plugins: ["@tailwindcss/typography"],
 };

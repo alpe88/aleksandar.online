@@ -11,11 +11,14 @@ function site_settings_endpoint() {
 function get_site_settings() {
     $tagline = get_bloginfo('description');
 
-    // Return site settings as needed
+    $pdf_attachment_id = 66;
+    $pdf_url = wp_get_attachment_url($pdf_attachment_id);
+
     return array(
         'tagline' => $tagline,
-        // Add more settings here if needed
+        'resume_url' => $pdf_url,
     );
 }
+
 
 add_action('rest_api_init', 'site_settings_endpoint');

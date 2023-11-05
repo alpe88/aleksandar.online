@@ -38,9 +38,9 @@
 }
 
 .animate-line {
-  animation: lineExpandX 1s forwards, lineExpandY 1s forwards,
-    lineContractY 1s forwards;
+  animation: lineExpandX 1s forwards, lineExpandY 0.5s forwards,
+    lineContractY 0.3s forwards;
   transform-origin: center;
-  animation-delay: 0s, 1s, 7s;
+  animation-delay: 0s, 1s, 8s;
   overflow-y: hidden;
 }

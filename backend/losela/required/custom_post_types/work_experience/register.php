@@ -61,4 +61,31 @@ function custom_work_experience_post_type() {
 }
 
 add_action( 'init', 'custom_work_experience_post_type', 0 );
-?>
+
+
+function custom_work_experience_taxonomy() {
+    $labels = array(
+        'name'              => _x('Categories', 'taxonomy general name', 'ao'),
+        'singular_name'     => _x('Category', 'taxonomy singular name', 'ao'),
+        'search_items'      => __('Search Categories', 'ao'),
+        'all_items'         => __('All Categories', 'ao'),
+        'edit_item'         => __('Edit Category', 'ao'),
+        'update_item'       => __('Update Category', 'ao'),
+        'add_new_item'      => __('Add New Category', 'ao'),
+        'new_item_name'     => __('New Category Name', 'ao'),
+        'menu_name'         => __('Categories', 'ao'),
+    );
+
+    $args = array(
+        'hierarchical'      => true,
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array('slug' => 'work-experience-category'),
+    );
+
+    register_taxonomy('work-experience-category', 'work-experience', $args);
+}
+
+add_action('init', 'custom_work_experience_taxonomy');

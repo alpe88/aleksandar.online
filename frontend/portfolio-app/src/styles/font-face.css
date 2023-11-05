@@ -1,0 +1,44 @@
+@font-face {
+  font-family: "Badaboom";
+  src: url("../fonts/Badaboom.TTF");
+}
+
+@font-face {
+  font-family: "Alex Brush";
+  src: url("../fonts/AlexBrush-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("../fonts/Lato/Lato-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Impact";
+  src: url("../fonts/Impact.ttf");
+}
+
+@font-face {
+  font-family: "ArchivoBlack";
+  src: url("../fonts/ArchivoBlack-Regular.ttf");
+}
+
+@font-face {
+  font-family: "AccidenzGrotesk";
+  src: url("../fonts/accidenzgrotesk.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "HankenGrotesk";
+  src: url("../fonts/HankenGrotesk/HankenGrotesk-VariableFont_wght.tff");
+}
+
+@font-face {
+  font-family: "NimbusSans";
+  src: url("../fonts/NimbusSans/NimbusSanL-Reg.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat/Montserrat-VariableFont_wght.ttf");
+}

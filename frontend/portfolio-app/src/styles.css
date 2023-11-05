@@ -1,3 +1,43 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+@import "./styles/animation.css";
+@import "./styles/font-face.css";
+
+@layer utilities {
+  .text-vertical {
+    text-orientation: upright;
+    writing-mode: vertical-lr;
+  }
+  .border-top-1-quarter:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 25%;
+    border-top: 1px solid;
+  }
+}
+
+.dotted {
+  background-image: radial-gradient(#ccc 10%, transparent 10%),
+    radial-gradient(#ccc 10%, transparent 10%);
+  background-color: #fff;
+  background-position: 0 0, 50px 50px;
+  background-size: 50px 50px;
+}
+
+.tag {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: -15px;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    border: 1px solid #000;
+  }
+}

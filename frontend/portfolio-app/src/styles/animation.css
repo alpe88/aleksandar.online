@@ -1,33 +1,3 @@
-@keyframes slideInFromRight {
-  0% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.slide-in-from-right {
-  animation: slideInFromRight 0.5s ease-in-out;
-}
-
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.slide-in-from-left {
-  animation: slideInFromLeft 0.5s ease-in-out;
-}
-
 @keyframes lineExpandX {
   from {
     transform: scaleX(0);
@@ -67,28 +37,10 @@
   animation: lineExpandY 1s forwards;
 }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.fade-in {
-  animation: fadeIn 0.5s forwards;
-}
-
 .animate-line {
   animation: lineExpandX 1s forwards, lineExpandY 1s forwards,
     lineContractY 1s forwards;
   transform-origin: center;
   animation-delay: 0s, 1s, 7s;
   overflow-y: hidden;
-}
-
-.animate-intro {
-  opacity: 0;
-  animation: fadeIn 0.5s ease-in forwards;
 }

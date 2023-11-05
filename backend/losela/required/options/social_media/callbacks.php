@@ -1,8 +1,6 @@
 <?php
 
 function social_media_section_callback() {
-  $options = get_option('social_media_handles');
-  var_dump($options);
   echo 'Enter your social media handles below:';
 }
 

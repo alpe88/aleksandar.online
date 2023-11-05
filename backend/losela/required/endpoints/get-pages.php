@@ -2,13 +2,13 @@
 
 function custom_page_endpoints() {
     // Route to get all pages
-    register_rest_route('portfolio-api/v1', '/pages', array(
+    register_rest_route(ENDPOINT_DOMAIN, '/pages', array(
         'methods' => 'GET',
         'callback' => 'get_all_pages_data',
     ));
 
     // Route to get a single page by slug
-    register_rest_route('portfolio-api/v1', '/page/(?P<slug>[\w-]+)', array(
+    register_rest_route(ENDPOINT_DOMAIN, '/page/(?P<slug>[\w-]+)', array(
         'methods' => 'GET',
         'callback' => 'get_single_page_data',
     ));

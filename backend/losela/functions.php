@@ -13,6 +13,7 @@ define('LINKEDIN_URL', 'https://www.linkedin.com/in/');
 define('GITHUB_URL', 'https://www.github.com/');
 define('EMAIL_URL', 'mailto:');
 define('INSTAGRAM_URL', 'https://www.instagram.com/');
+define('ENDPOINT_DOMAIN', 'portfolio-api/v1');
 
 
 function require_all_files($dir) {

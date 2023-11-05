@@ -1,25 +1,5 @@
 <?php
 
-function process_social_media_handles($social_media_handles) {
-    $social_media_links = array();
-
-    foreach ($social_media_handles as $platform => $platformData) {
-        $handle = $platformData['handle'];
-        $url = $platformData['url'];
-        $icon = get_social_media_icon($platform);
-
-        $social_media_links[] = array(
-            'platform' => $platform,
-            'handle' => $handle,
-            'url' => $url,
-            'icon' => $icon,
-        );
-    }
-
-    return $social_media_links;
-}
-
-
 function get_social_media_links() {
     $social_media_handles = get_option('social_media_handles');
     if (empty($social_media_handles)) {
@@ -44,7 +24,7 @@ function get_social_media_links_endpoint() {
 
 
 add_action('rest_api_init', function () {
-    register_rest_route('portfolio-api/v1', '/social-media-links', array(
+    register_rest_route(ENDPOINT_DOMAIN, '/social-media-links', array(
         'methods' => 'GET',
         'callback' => 'get_social_media_links_endpoint',
     ));

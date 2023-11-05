@@ -2,7 +2,7 @@
 
 // Register custom endpoint for fetching all posts of a specific post type
 function custom_post_type_endpoint() {
-    register_rest_route('portfolio-api/v1', '/post-type/(?P<post_type>[a-zA-Z0-9_-]+)', array(
+    register_rest_route(ENDPOINT_DOMAIN, '/post-type/(?P<post_type>[a-zA-Z0-9_-]+)', array(
         'methods' => 'GET',
         'callback' => 'get_custom_post_types',
     ));

@@ -36,3 +36,21 @@ function disable_default_endpoints( $endpoints ) {
     }
     return $endpoints;
 }
+
+/**
+ * Register custom endpoints so it will be cached.
+ */
+function register_custom_endpoints_for_cache( $allowed_endpoints ) {
+    $custom_endpoints = [
+      'post-type','pages', 'page', 'site-settings', 'social-media-links'
+    ];
+  
+    foreach ( $custom_endpoints as $endpoint ) {
+      if ( ! isset( $allowed_endpoints[ ENDPOINT_DOMAIN ] ) || ! in_array( $endpoint, $allowed_endpoints[ ENDPOINT_DOMAIN ] ) ) {
+        $allowed_endpoints[ ENDPOINT_DOMAIN ][] = $endpoint;
+      }
+    }
+  
+    return $allowed_endpoints;
+  }
+  add_filter( 'wp_rest_cache/allowed_endpoints', 'register_custom_endpoints_for_cache', 10, 1);

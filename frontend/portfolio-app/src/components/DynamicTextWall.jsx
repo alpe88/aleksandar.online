@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../../tailwind.config";
 import Typography from "./Typography";
+import { ANIMATION_DELAY } from "../definitions/animation";
 
 function getIndecies(breakpoint) {
   const fullConfig = resolveConfig(tailwindConfig);
@@ -12,34 +13,22 @@ function getIndecies(breakpoint) {
     ? { linesOfText: 4, highlightIndex: 1 }
     : { linesOfText: 7, highlightIndex: 2 };
 }
-
-const ANIMATION_DELAY = {
-  2000: "animate-delay-[2s]",
-  3000: "animate-delay-[3s]",
-  4000: "animate-delay-[4s]",
-  5000: "animate-delay-[5s]",
-  6000: "animate-delay-[6s]",
-  7000: "animate-delay-[7s]",
-  8000: "animate-delay-[8s]",
-  9000: "animate-delay-[9s]",
-  10000: "animate-delay-[10s]",
-};
-
-export default function DynamicTextWall({ breakpoint }) {
+export default function DynamicTextWall({ breakpoint, text }) {
+  const { repeat, highlight } = text;
   const { linesOfText, highlightIndex } = getIndecies(breakpoint);
 
   const TextElements = Array.from({ length: linesOfText }, (_, index) => {
     const delay = (1 + linesOfText - index) * 1000;
     const delayClassName = ANIMATION_DELAY[delay];
     return {
-      variant: index === highlightIndex ? "h1" : "body",
+      variant: "body",
       size: "text-[1.35rem] sm:text-[2.7rem] lg:text-[5rem] xl:text-[7rem]",
       className: `tracking-wide xs:tracking-widest sm:tracking-[0.3em] lg:tracking-normal px-1 w-full font-weight-bold uppercase ${
         index === highlightIndex
           ? "text-white"
           : "text-black text-stroke-sm-[#fff]"
-      } text-center font-[ArchivoBlack] animate-fade animate-duration-[10ms] ${delayClassName}`,
-      text: "aleksandar",
+      } text-center font-[ArchivoBlack] animate-fade animate-duration-[5ms] ${delayClassName}`,
+      text: index === highlightIndex ? highlight : repeat,
     };
   });
 
@@ -61,6 +50,10 @@ export default function DynamicTextWall({ breakpoint }) {
 
 DynamicTextWall.propTypes = {
   breakpoint: PropTypes.oneOf(
-    Object.keys(resolveConfig(tailwindConfig).theme.screens)
+    Object.keys(resolveConfig(tailwindConfig).theme.screens) || null
   ).isRequired,
+  text: PropTypes.shape({
+    highlight: PropTypes.string.isRequired,
+    repeat: PropTypes.string.isRequired,
+  }),
 };

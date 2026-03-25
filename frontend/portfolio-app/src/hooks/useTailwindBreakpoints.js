@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
-import resolveConfig from "tailwindcss/resolveConfig";
-import tailwindConfig from "../../tailwind.config";
+import { useEffect, useState } from "react";
+import { BREAKPOINTS } from "../definitions/breakpoints";
 
 function getScreenSize(width) {
-  const fullConfig = resolveConfig(tailwindConfig);
-  const { screens } = fullConfig.theme;
+  const screens = BREAKPOINTS;
 
   return Object.entries(screens).reduce((foundKey, [key, value]) => {
     const numericValue = parseInt(value);
@@ -18,13 +16,7 @@ function getScreenSize(width) {
 }
 
 export function useTailwindBreakpoints(width) {
-  const [breakpoint, setBreakpoint] = useState(getScreenSize(width));
-
-  useEffect(() => {
-    setBreakpoint(getScreenSize(width));
-  }, [breakpoint, width]);
-
-  return breakpoint;
+  return getScreenSize(width);
 }
 
 export function useWindowWidth() {

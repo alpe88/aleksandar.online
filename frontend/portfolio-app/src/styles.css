@@ -1,18 +1,18 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-
 @import "./styles/animation.css";
 @import "./styles/font-face.css";
+@import "tailwindcss";
+@config "../tailwind.config.js";
 
-@layer utilities {
-  .text-vertical {
-    writing-mode: vertical-lr;
-  }
-  .text-upright {
-    text-orientation: upright;
-  }
-  .border-top-1-quarter:before {
+@utility text-vertical {
+  writing-mode: vertical-lr;
+}
+
+@utility text-upright {
+  text-orientation: upright;
+}
+
+@utility border-top-1-quarter {
+  &::before {
     content: "";
     position: absolute;
     top: 0;
@@ -23,10 +23,36 @@
   }
 }
 
+@layer utilities {
+  .text-vertical {
+    writing-mode: vertical-lr;
+  }
+}
+
 .dotted {
   background-image: radial-gradient(#ccc 10%, transparent 10%),
     radial-gradient(#ccc 10%, transparent 10%);
   background-color: #fff;
   background-position: 0 0, 50px 50px;
   background-size: 50px 50px;
+}
+
+/* spinner.css */
+.loader {
+  border: 8px solid #f3f3f3; /* Light grey background */
+  border-top: 8px solid #000; /* Blue spinner "cap" */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin: 1rem auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

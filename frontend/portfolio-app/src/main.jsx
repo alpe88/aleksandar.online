@@ -13,13 +13,6 @@ const router = createBrowserRouter([
     element: <App />,
     loader: appLoader,
     errorElement: <ErrorBoundary />,
-    // children: [
-    //   {
-    //     path: "team",
-    //     element: <Team />,
-    //     loader: teamLoader,
-    //   },
-    // ],
   },
 ]);
 

@@ -13,3 +13,8 @@ Check out the live website: [www.aleksandar.online](https://www.aleksandar.onlin
 - REST API: WordPress REST API used for retrieving data from the CMS.
 - HTML5 & CSS3: Markup and styling of the website.
 - JavaScript: Programming language for the interactive functionality.
+
+## Misc
+
+https://www.joshwcomeau.com/snippets/react-hooks/use-mouse-position/
+https://medium.com/@jaredloson/custom-javascript-cursor-in-react-d7ffefb2db38

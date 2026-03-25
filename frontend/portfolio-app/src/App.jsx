@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Suspense, useState, useEffect } from "react";
 import { useLoaderData, Await } from "react-router-dom";
 import { DynamicTextWall, Typography } from "./components";
@@ -7,8 +8,9 @@ import {
 } from "./hooks/useTailwindBreakpoints";
 
 /**
- * 1) Quick Fallback for Suspense
- *    Shown only while the data is still loading.
+ * Rendered by Suspense while the route loader promise is still pending.
+ * This is the true network/data fallback. Once the loader resolves,
+ * the app switches to the intro animation below.
  */
 function QuickFallback() {
   return (
@@ -19,13 +21,11 @@ function QuickFallback() {
 }
 
 /**
- * 2) The Animation Screen
- *    Shown once data is available, but we still want
- *    a special loading/intro animation to finish before
- *    revealing the final content.
+ * Runs after route data has loaded, but before the final content is revealed.
+ * This is separate from the Suspense fallback above.
  */
 function LoadingAnimation({ onDone, breakpoint }) {
-  // Example: auto-finish after 3 seconds
+  // End the intro once its text animation has had time to complete.
   useEffect(() => {
     const timer = setTimeout(() => onDone(), 7000);
     return () => clearTimeout(timer);
@@ -44,20 +44,22 @@ function LoadingAnimation({ onDone, breakpoint }) {
   );
 }
 
+LoadingAnimation.propTypes = {
+  onDone: PropTypes.func.isRequired,
+  breakpoint: PropTypes.string,
+};
+
 export default function App() {
   const [animationDone, setAnimationDone] = useState(false);
   const windowWidth = useWindowWidth();
   const breakpoint = useTailwindBreakpoints(windowWidth);
 
-  // fetchedData is your loader's promise
+  // The loader returns an unresolved promise so Suspense can show QuickFallback.
   const { fetchedData } = useLoaderData();
 
   return (
     <main className="min-h-screen flex flex-col justify-center items-center">
-      {/**
-       * Wrap your <Await> in Suspense. Use QuickFallback for
-       * the genuine "data is not here yet" scenario.
-       */}
+      {/* Suspense covers the pending loader promise; <Await> renders once it resolves. */}
       <Suspense fallback={<QuickFallback />}>
         <Await resolve={fetchedData}>
           {(data) => {
@@ -73,12 +75,8 @@ export default function App() {
 
             // At this point, data is loaded AND the animation is done.
             // Render your final UI (filtered + sorted).
-            const [
-              { page: aboutMe },
-              { resources },
-              { site_title: name, tagline, resume_url },
-              { email, linkedin, github },
-            ] = data;
+            const [, , { site_title: name, tagline }, { email, linkedin, github }] =
+              data;
 
             const contactMe = [email, linkedin, github];
 

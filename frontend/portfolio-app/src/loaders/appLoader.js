@@ -13,7 +13,7 @@ export default function appLoader() {
     return Promise.all(responses.map((response) => response.json()));
   });
 
-  // Return an object with a promise property.
-  // Do NOT await it here.
+  // Keep the promise unresolved here so React Router can hand it to <Await>.
+  // App.jsx wraps that promise in Suspense, which is what triggers QuickFallback.
   return { fetchedData: dataPromise };
 }
